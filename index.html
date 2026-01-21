@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>出店用地募集 | 株式会社FIT PLACE</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Reset & Base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: #000;
+            background: #fff;
+            line-height: 1.8;
+        }
+
+        /* Typography */
+        h1, h2 {
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3.5rem);
+        }
+
+        h2 {
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            margin-bottom: clamp(2rem, 5vw, 4rem);
+        }
+
+        p {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+        }
+
+        /* Accent */
+        .accent-underline {
+            border-bottom: 3px solid #ccfd40;
+            display: inline-block;
+            padding-bottom: 8px;
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 60px);
+        }
+
+        section {
+            padding: min(15vh, 120px) 0;
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            text-align: center;
+            min-height: 85vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: #fafafa;
+        }
+
+        .hero-bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.95);
+            padding: clamp(40px, 8vw, 80px) clamp(30px, 6vw, 60px);
+            border-radius: 12px;
+            max-width: 800px;
+            margin: 0 20px;
+        }
+
+        .hero-content h1 {
+            margin-bottom: 24px;
+        }
+
+        .hero-content p {
+            color: #666;
+            margin-bottom: 48px;
+        }
+
+        /* CTA Button */
+        .cta-button {
+            background: #ccfd40;
+            color: #000;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 4px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background: #b8e336;
+            transform: translateY(-2px);
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+            margin-top: 60px;
+        }
+
+        .card {
+            background: #fff;
+            border: 1px solid #e5e5e5;
+            border-radius: 8px;
+            padding: 40px;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .card:hover {
+            box-shadow: 0 8px 30px rgba(204, 253, 64, 0.2);
+            transform: translateY(-4px);
+        }
+
+        .card-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 24px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #000;
+        }
+
+        .card h3 {
+            font-size: clamp(1.25rem, 3vw, 1.5rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .card p {
+            color: #666;
+            font-size: clamp(0.9rem, 2vw, 1rem);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            border-bottom: 1px solid #e5e5e5;
+            margin-bottom: 40px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .tab {
+            background: none;
+            border: none;
+            padding: 16px 0;
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            color: #999;
+            transition: color 0.3s ease;
+        }
+
+        .tab.active {
+            color: #000;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: #ccfd40;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Conditions Table */
+        .conditions-list {
+            display: grid;
+            gap: 24px;
+        }
+
+        .condition-item {
+            display: grid;
+            grid-template-columns: 200px 1fr;
+            gap: 24px;
+            padding: 20px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .condition-label {
+            font-weight: 700;
+        }
+
+        .condition-value {
+            color: #666;
+        }
+
+        /* NG Section */
+        .ng-section {
+            max-width: 900px;
+            margin: 60px auto 0;
+        }
+
+        .ng-intro {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            color: #666;
+            margin-bottom: 50px;
+            text-align: center;
+            line-height: 1.9;
+        }
+
+        .ng-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 32px;
+        }
+
+        .ng-item {
+            text-align: center;
+        }
+
+        .ng-icon-wrapper {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            background: #fafafa;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .ng-item:hover .ng-icon-wrapper {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+
+        .ng-icon-wrapper svg {
+            width: 50px;
+            height: 50px;
+            stroke: #999;
+            stroke-width: 1.5;
+        }
+
+        .ng-label {
+            font-size: clamp(0.95rem, 2vw, 1.05rem);
+            font-weight: 500;
+            color: #333;
+        }
+
+        /* Gallery */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            margin-top: 60px;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            background: #f0f0f0;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0,0,0,0.7);
+            color: #fff;
+            padding: 16px;
+            font-size: 0.9rem;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 32px;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .required {
+            color: #ff0000;
+            margin-left: 4px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid #e5e5e5;
+            border-radius: 4px;
+            font-family: 'Noto Sans JP', sans-serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ccfd40;
+        }
+
+        .form-group textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .error-message {
+            color: #ff0000;
+            font-size: 0.875rem;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .form-group.error .error-message {
+            display: block;
+        }
+
+        .form-group.error input,
+        .form-group.error select,
+        .form-group.error textarea {
+            border-color: #ff0000;
+        }
+
+        /* Footer */
+        footer {
+            background: #fafafa;
+            padding: 60px 0;
+            margin-top: min(15vh, 120px);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 clamp(20px, 5vw, 60px);
+        }
+
+        .footer-info {
+            margin-bottom: 24px;
+        }
+
+        .footer-info h3 {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .footer-info p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            margin-top: 32px;
+        }
+
+        .footer-links a {
+            color: #666;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #000;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .condition-item {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .tabs {
+                gap: 20px;
+            }
+
+            .sp-hide {
+                display: none;
+            }
+        }
+
+        /* Scroll Animation */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg">
+             <img src="images/HS9_0800.jpg" alt="">
+        </div>
+        <div class="hero-content">
+            <h1>出店用地募集中</h1>
+            <p>FIT PLACEは2026年累計300店舗出店を目標に<br>
+                全国で出店用地を積極的に募集しています。
+            </p>
+            <a href="#requirements" class="cta-button">募集要項を見る</a>
+        </div>
+    </section>
+
+    <!-- Property Types -->
+    <section id="types">
+        <div class="container">
+            <h2 class="accent-underline">募集物件タイプ</h2>
+            <div class="card-grid">
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M3 9h18M9 21V9"/>
+                        </svg>
+                    </div>
+                    <h3>ビルイン</h3>
+                    <p>都市部のビル内店舗に最適。<br>
+                        高い集客力と利便性を実現します。</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M5 17h14v-2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1v2z"/>
+                            <circle cx="7" cy="17" r="2"/>
+                            <circle cx="17" cy="17" r="2"/>
+                            <path d="M5 9l2-4h10l2 4"/>
+                        </svg>
+                    </div>
+                    <h3>ロードサイド</h3>
+                    <p>駐車場完備で郊外エリアに展開。<br>
+                        家族層をメインターゲットに。</p>
+                </div>
+                <div class="card fade-in">
+                    <div class="card-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 7v10a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V7"/>
+                            <path d="M3 7l2-4h14l2 4"/>
+                            <path d="M8 10h8"/>
+                        </svg>
+                    </div>
+                    <h3>ショップイン</h3>
+                    <p>商業施設内での出店。<br>
+                        安定した集客と相乗効果が<br>
+                        期待できます。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Requirements -->
+    <section id="requirements">
+        <div class="container">
+            <h2 class="accent-underline">詳細条件</h2>
+            <div class="tabs">
+                <button class="tab active" data-tab="buildin">ビルイン</button>
+                <button class="tab" data-tab="roadside">ロードサイド</button>
+                <button class="tab" data-tab="shopin">ショップイン</button>
+            </div>
+
+            <div class="tab-content active" id="buildin">
+                <div class="conditions-list fade-in">
+                    <div class="condition-item">
+                        <div class="condition-label">建坪</div>
+                        <div class="condition-value">80坪以上<br>※東京23区内等駅規模の大きい駅前は50~60坪(用途変更なし)や60~80坪も可能</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-label">天井高</div>
+                        <div class="condition-value">2.7m以上</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-label">その他条件</div>
+                        <div class="condition-value">24時間営業可能、検査済証あり</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="roadside">
+                <div class="conditions-list fade-in">
+                    <div class="condition-item">
+                        <div class="condition-label">建坪</div>
+                        <div class="condition-value">100坪以上</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-label">天井高</div>
+                        <div class="condition-value">2.7m以上</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-label">駐車場</div>
+                        <div class="condition-value">30台以上<br>※提携または共用でも可能です。</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-label">その他条件</div>
+                        <div class="condition-value">24時間営業可能、検査済証あり、幹線道路沿い</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="shopin">
+                <div class="conditions-list fade-in">
+                    <div class="condition-item">
+                        <div class="condition-label">建坪</div>
+                        <div class="condition-value">80坪以上</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-label">天井高</div>
+                        <div class="condition-value">2.7m以上</div>
+                    </div>
+                    <div class="condition-item">
+                        <div class="condition-label">その他条件</div>
+                        <div class="condition-value">24時間営業可能、検査済証あり</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- NG Conditions -->
+    <section>
+        <div class="container">
+            <h2 class="accent-underline">検討が難しくなる条件</h2>
+            <div class="ng-section fade-in">
+                <p class="ng-intro">
+                    上下階が下記の用途の場合、振動・騒音の関係上、<br class="sp-hide">出店の検討が難しくなる可能性がございます。
+                </p>
+                <div class="ng-grid">
+                    <div class="ng-item">
+                        <div class="ng-icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <rect x="3" y="3" width="18" height="18" rx="2"/>
+                                <path d="M3 9h18"/>
+                                <path d="M8 6v3"/>
+                                <path d="M16 6v3"/>
+                                <path d="M7 14h4"/>
+                                <path d="M7 17h2"/>
+                            </svg>
+                        </div>
+                        <div class="ng-label">事務所</div>
+                    </div>
+                    <div class="ng-item">
+                        <div class="ng-icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                                <path d="M10 8h6"/>
+                                <path d="M10 12h6"/>
+                                <path d="M10 16h4"/>
+                            </svg>
+                        </div>
+                        <div class="ng-label">学習塾</div>
+                    </div>
+                    <div class="ng-item">
+                        <div class="ng-icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                                <path d="M12 5v2"/>
+                                <path d="M12 11v2"/>
+                            </svg>
+                        </div>
+                        <div class="ng-label">クリニック・病院</div>
+                    </div>
+                    <div class="ng-item">
+                        <div class="ng-icon-wrapper">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                                <polyline points="9 22 9 12 15 12 15 22"/>
+                                <path d="M9 6h.01"/>
+                                <path d="M15 6h.01"/>
+                            </svg>
+                        </div>
+                        <div class="ng-label">住居</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery -->
+    <section>
+        <div class="container">
+            <h2 class="accent-underline">出店実績</h2>
+            <div class="gallery">
+                <div class="gallery-item fade-in">
+                    <img src="images/IMG_6543.jpeg" alt="郊外ロードサイド店舗">
+                    <div class="gallery-caption">郊外ロードサイド店舗</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="images/IMG_8296.jpeg" alt="商業施設内ショップイン店舗">
+                    <div class="gallery-caption">商業施設内ショップイン</div>
+                </div>
+                <div class="gallery-item fade-in">
+                    <img src="images/LINE_ALBUM_MEO写真_231218_9.jpg" alt="駅前ビルイン店舗">
+                    <div class="gallery-caption">駅前ビルイン店舗</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="accent-underline">物件情報のご提供・お問い合わせ</h2>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label>会社名<span class="required">*</span></label>
+                    <input type="text" name="company" required>
+                    <div class="error-message">会社名を入力してください</div>
+                </div>
+                <div class="form-group">
+                    <label>ご担当者名<span class="required">*</span></label>
+                    <input type="text" name="name" required>
+                    <div class="error-message">ご担当者名を入力してください</div>
+                </div>
+                <div class="form-group">
+                    <label>電話番号<span class="required">*</span></label>
+                    <input type="tel" name="phone" required>
+                    <div class="error-message">電話番号を入力してください</div>
+                </div>
+                <div class="form-group">
+                    <label>メールアドレス<span class="required">*</span></label>
+                    <input type="email" name="email" required>
+                    <div class="error-message">正しいメールアドレスを入力してください</div>
+                </div>
+                <div class="form-group">
+                    <label>物件種別<span class="required">*</span></label>
+                    <select name="propertyType" required>
+                        <option value="">選択してください</option>
+                        <option value="buildin">ビルイン</option>
+                        <option value="roadside">ロードサイド</option>
+                        <option value="shopin">ショップイン</option>
+                    </select>
+                    <div class="error-message">物件種別を選択してください</div>
+                </div>
+                <div class="form-group">
+                    <label>メッセージ</label>
+                    <textarea name="message"></textarea>
+                </div>
+                <button type="submit" class="cta-button">送信する</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-info">
+                <h3>株式会社FIT PLACE</h3>
+                <p>
+                    東京都品川区西五反田1-2-10 CIRCLES五反田8F<br>
+                    TEL: 03-1234-5678<br>
+                    営業時間: 平日 10:00-19:00
+                </p>
+            </div>
+            <div class="footer-links">
+                <a href="#">プライバシーポリシー</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Tab Switching
+        const tabs = document.querySelectorAll('.tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const targetId = tab.getAttribute('data-tab');
+                
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(tc => tc.classList.remove('active'));
+                
+                tab.classList.add('active');
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const checkFade = () => {
+            fadeElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                
+                if (rect.top < windowHeight * 0.85) {
+                    element.classList.add('visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', checkFade);
+        window.addEventListener('load', checkFade);
+
+        // Form Validation
+        const form = document.getElementById('contactForm');
+        
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            let isValid = true;
+            const formGroups = form.querySelectorAll('.form-group');
+            
+            formGroups.forEach(group => {
+                group.classList.remove('error');
+                const input = group.querySelector('input, select, textarea');
+                
+                if (input.hasAttribute('required') && !input.value.trim()) {
+                    group.classList.add('error');
+                    isValid = false;
+                }
+                
+                if (input.type === 'email' && input.value) {
+                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(input.value)) {
+                        group.classList.add('error');
+                        isValid = false;
+                    }
+                }
+            });
+            
+            if (isValid) {
+                alert('送信が完了しました。担当者より折り返しご連絡いたします。');
+                form.reset();
+            }
+        });
+    </script>
+</body>
+</html>
