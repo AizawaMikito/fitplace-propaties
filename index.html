@@ -315,12 +315,23 @@
             background: #f0f0f0;
             border-radius: 8px;
             overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.15);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
         }
 
         .gallery-caption {
@@ -334,61 +345,110 @@
             font-size: 0.9rem;
         }
 
-        /* Form */
-        .form-group {
-            margin-bottom: 32px;
+        /* Schedule Flow */
+        .schedule-flow {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            margin-top: 60px;
+            align-items: start;
         }
 
-        .form-group label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .required {
-            color: #ff0000;
-            margin-left: 4px;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px 16px;
+        .schedule-item {
+            background: #fff;
             border: 1px solid #e5e5e5;
-            border-radius: 4px;
-            font-family: 'Noto Sans JP', sans-serif;
-            font-size: 1rem;
-            transition: border-color 0.3s ease;
+            border-radius: 8px;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            min-height: 380px;
         }
 
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #ccfd40;
+        .schedule-item:hover {
+            box-shadow: 0 8px 30px rgba(204, 253, 64, 0.2);
+            transform: translateY(-4px);
         }
 
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
+        .schedule-number {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            line-height: 50px;
+            background: #ccfd40;
+            color: #000;
+            border-radius: 50%;
+            font-weight: 700;
+            font-size: 1.25rem;
+            margin: 0 auto 20px;
         }
 
-        .error-message {
-            color: #ff0000;
-            font-size: 0.875rem;
-            margin-top: 8px;
+        .schedule-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .schedule-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #666;
+        }
+
+        .schedule-item h3 {
+            font-size: clamp(1rem, 2.5vw, 1.15rem);
+            font-weight: 700;
+            margin-bottom: 16px;
+            line-height: 1.4;
+        }
+
+        .schedule-item p {
+            color: #666;
+            font-size: clamp(0.8rem, 2vw, 0.9rem);
+            line-height: 1.7;
+            flex-grow: 1;
+        }
+
+        .schedule-arrow {
             display: none;
         }
 
-        .form-group.error .error-message {
-            display: block;
+        /* Contact Box */
+        .contact-box {
+            max-width: 700px;
+            margin: 60px auto 0;
+            background: #fafafa;
+            border-radius: 12px;
+            padding: clamp(40px, 8vw, 60px);
+            text-align: center;
         }
 
-        .form-group.error input,
-        .form-group.error select,
-        .form-group.error textarea {
-            border-color: #ff0000;
+        .contact-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 30px;
+            background: #ccfd40;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .contact-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: #000;
+        }
+
+        .contact-message {
+            font-size: clamp(1rem, 2vw, 1.125rem);
+            line-height: 1.9;
+            color: #666;
         }
 
         /* Footer */
@@ -436,6 +496,12 @@
         }
 
         /* Responsive */
+        @media (max-width: 1024px) {
+            .schedule-flow {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
         @media (max-width: 768px) {
             .condition-item {
                 grid-template-columns: 1fr;
@@ -448,6 +514,14 @@
 
             .sp-hide {
                 display: none;
+            }
+
+            .schedule-flow {
+                grid-template-columns: 1fr;
+            }
+
+            .schedule-item {
+                min-height: auto;
             }
         }
 
@@ -468,7 +542,8 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-bg">
-             <img src="images/HS9_0800.jpg" alt="">
+            <!-- ここに背景画像を入れてください -->
+            <img src="images/HS9_0800.jpg" alt="">
         </div>
         <div class="hero-content">
             <h1>出店用地募集中</h1>
@@ -491,9 +566,7 @@
                             <path d="M3 9h18M9 21V9"/>
                         </svg>
                     </div>
-                    <h3>ビルイン</h3>
-                    <p>都市部のビル内店舗に最適。<br>
-                        高い集客力と利便性を実現します。</p>
+                    <h3>駅前ビルイン型</h3>
                 </div>
                 <div class="card fade-in">
                     <div class="card-icon">
@@ -504,9 +577,7 @@
                             <path d="M5 9l2-4h10l2 4"/>
                         </svg>
                     </div>
-                    <h3>ロードサイド</h3>
-                    <p>駐車場完備で郊外エリアに展開。<br>
-                        家族層をメインターゲットに。</p>
+                    <h3>郊外ロードサイド型</h3>
                 </div>
                 <div class="card fade-in">
                     <div class="card-icon">
@@ -516,10 +587,7 @@
                             <path d="M8 10h8"/>
                         </svg>
                     </div>
-                    <h3>ショップイン</h3>
-                    <p>商業施設内での出店。<br>
-                        安定した集客と相乗効果が<br>
-                        期待できます。</p>
+                    <h3>商業・複合施設型</h3>
                 </div>
             </div>
         </div>
@@ -547,7 +615,7 @@
                     </div>
                     <div class="condition-item">
                         <div class="condition-label">その他条件</div>
-                        <div class="condition-value">24時間営業可能、検査済証あり</div>
+                        <div class="condition-value">24時間営業可能、検査済証あり、空中階・複層階可能<br>上下階がクリニック・事務所・住居・学習塾の場合は振動・騒音問題発生の懸念があるため検討が難しくなります。</div>
                     </div>
                 </div>
             </div>
@@ -564,11 +632,11 @@
                     </div>
                     <div class="condition-item">
                         <div class="condition-label">駐車場</div>
-                        <div class="condition-value">30台以上<br>※提携または共用でも可能です。</div>
+                        <div class="condition-value">30台以上<br>※提携または共用でも可能</div>
                     </div>
                     <div class="condition-item">
                         <div class="condition-label">その他条件</div>
-                        <div class="condition-value">24時間営業可能、検査済証あり、幹線道路沿い</div>
+                        <div class="condition-value">24時間営業可能、検査済証あり、複層階可能<br>上下階がクリニック・事務所・住居・学習塾の場合は振動・騒音問題発生の懸念があるため検討が難しくなります。</div>
                     </div>
                 </div>
             </div>
@@ -585,67 +653,7 @@
                     </div>
                     <div class="condition-item">
                         <div class="condition-label">その他条件</div>
-                        <div class="condition-value">24時間営業可能、検査済証あり</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- NG Conditions -->
-    <section>
-        <div class="container">
-            <h2 class="accent-underline">検討が難しくなる条件</h2>
-            <div class="ng-section fade-in">
-                <p class="ng-intro">
-                    上下階が下記の用途の場合、振動・騒音の関係上、<br class="sp-hide">出店の検討が難しくなる可能性がございます。
-                </p>
-                <div class="ng-grid">
-                    <div class="ng-item">
-                        <div class="ng-icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <rect x="3" y="3" width="18" height="18" rx="2"/>
-                                <path d="M3 9h18"/>
-                                <path d="M8 6v3"/>
-                                <path d="M16 6v3"/>
-                                <path d="M7 14h4"/>
-                                <path d="M7 17h2"/>
-                            </svg>
-                        </div>
-                        <div class="ng-label">事務所</div>
-                    </div>
-                    <div class="ng-item">
-                        <div class="ng-icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                                <path d="M10 8h6"/>
-                                <path d="M10 12h6"/>
-                                <path d="M10 16h4"/>
-                            </svg>
-                        </div>
-                        <div class="ng-label">学習塾</div>
-                    </div>
-                    <div class="ng-item">
-                        <div class="ng-icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                                <path d="M12 5v2"/>
-                                <path d="M12 11v2"/>
-                            </svg>
-                        </div>
-                        <div class="ng-label">クリニック・病院</div>
-                    </div>
-                    <div class="ng-item">
-                        <div class="ng-icon-wrapper">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                                <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
-                                <polyline points="9 22 9 12 15 12 15 22"/>
-                                <path d="M9 6h.01"/>
-                                <path d="M15 6h.01"/>
-                            </svg>
-                        </div>
-                        <div class="ng-label">住居</div>
+                        <div class="condition-value">24時間営業可能、検査済証あり<br>上下階がクリニック・事務所・住居・学習塾の場合は振動・騒音問題発生の懸念があるため検討が難しくなります。</div>
                     </div>
                 </div>
             </div>
@@ -673,47 +681,22 @@
         </div>
     </section>
 
-    <!-- Contact Form -->
+    <!-- Contact -->
     <section id="contact">
         <div class="container">
             <h2 class="accent-underline">物件情報のご提供・お問い合わせ</h2>
-            <form id="contactForm">
-                <div class="form-group">
-                    <label>会社名<span class="required">*</span></label>
-                    <input type="text" name="company" required>
-                    <div class="error-message">会社名を入力してください</div>
+            <div class="contact-box fade-in">
+                <div class="contact-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="2" y="4" width="20" height="16" rx="2"/>
+                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/>
+                    </svg>
                 </div>
-                <div class="form-group">
-                    <label>ご担当者名<span class="required">*</span></label>
-                    <input type="text" name="name" required>
-                    <div class="error-message">ご担当者名を入力してください</div>
-                </div>
-                <div class="form-group">
-                    <label>電話番号<span class="required">*</span></label>
-                    <input type="tel" name="phone" required>
-                    <div class="error-message">電話番号を入力してください</div>
-                </div>
-                <div class="form-group">
-                    <label>メールアドレス<span class="required">*</span></label>
-                    <input type="email" name="email" required>
-                    <div class="error-message">正しいメールアドレスを入力してください</div>
-                </div>
-                <div class="form-group">
-                    <label>物件種別<span class="required">*</span></label>
-                    <select name="propertyType" required>
-                        <option value="">選択してください</option>
-                        <option value="buildin">ビルイン</option>
-                        <option value="roadside">ロードサイド</option>
-                        <option value="shopin">ショップイン</option>
-                    </select>
-                    <div class="error-message">物件種別を選択してください</div>
-                </div>
-                <div class="form-group">
-                    <label>メッセージ</label>
-                    <textarea name="message"></textarea>
-                </div>
-                <button type="submit" class="cta-button">送信する</button>
-            </form>
+                <p class="contact-message">
+                    物件のご紹介やご質問など、お気軽にご連絡ください。<br>
+                    名刺に記載の連絡先、またはメールにてお問い合わせをお願いいたします。
+                </p>
+            </div>
         </div>
     </section>
 
@@ -727,9 +710,6 @@
                     TEL: 03-1234-5678<br>
                     営業時間: 平日 10:00-19:00
                 </p>
-            </div>
-            <div class="footer-links">
-                <a href="#">プライバシーポリシー</a>
             </div>
         </div>
     </footer>
@@ -781,39 +761,6 @@
 
         window.addEventListener('scroll', checkFade);
         window.addEventListener('load', checkFade);
-
-        // Form Validation
-        const form = document.getElementById('contactForm');
-        
-        form.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            let isValid = true;
-            const formGroups = form.querySelectorAll('.form-group');
-            
-            formGroups.forEach(group => {
-                group.classList.remove('error');
-                const input = group.querySelector('input, select, textarea');
-                
-                if (input.hasAttribute('required') && !input.value.trim()) {
-                    group.classList.add('error');
-                    isValid = false;
-                }
-                
-                if (input.type === 'email' && input.value) {
-                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailPattern.test(input.value)) {
-                        group.classList.add('error');
-                        isValid = false;
-                    }
-                }
-            });
-            
-            if (isValid) {
-                alert('送信が完了しました。担当者より折り返しご連絡いたします。');
-                form.reset();
-            }
-        });
     </script>
 </body>
 </html>
